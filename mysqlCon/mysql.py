@@ -13,7 +13,7 @@ def query_db(query: str, DB_NAME: str):
         port=3307,
         user="root",
         password="samanosuke",
-        database="database_test"
+        database=DB_NAME
     )
           # Query the database
         cursor = conexion.cursor()

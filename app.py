@@ -1,5 +1,5 @@
 from flask import Flask, request, jsonify
-from ask_ia.ia import ia
+from ask_ia.ia import ia, deepseek
 import json
 from dotenv import load_dotenv
 from mysqlCon.mysql import query_db
@@ -40,7 +40,7 @@ def openai():
                 si lo que te pido no existe en la estructura o falta mas valores devuelveme un sql vacio 
 
                 """,
-    result = ia(query=body["query"],prompt=prompt)
+    result = deepseek(query=body["query"],prompt=prompt)
 
     
 
@@ -63,7 +63,7 @@ def script():
     body = request.get_json()
     try:
         subprocess.run(
-            f'docker exec -i mysql-docker-db-1 mysqldump -u root -psamanosuke --no-data {body["db_name"]} > ./schemas/{body["db_name"]}.sql',
+            f'docker exec -i mariadb mysqldump -u root -psamanosuke --no-data {body["db_name"]} > ./schemas/{body["db_name"]}.sql',
             shell=True,
             check=True,
 
